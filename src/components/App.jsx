@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { Searchbar } from "./Searchbar/Searchbar";
 
 export class App extends Component {
   state = {
@@ -7,19 +8,9 @@ export class App extends Component {
 
   render(){
     return (
-      <div
-        style={{
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontSize: 40,
-          textTransform: 'uppercase',
-          color: '#010101',
-        }}
-      >
-        Image Finder v3.0
-      </div>
+      <>
+      <Searchbar onSubmit={()=>console.log('s')} />
+      </>
     );
   }
 };
