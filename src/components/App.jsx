@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { Searchbar } from "./Searchbar/Searchbar";
+// import { Modal} from "./Modal/Modal"
 
 export class App extends Component {
   state = {
