@@ -3,7 +3,10 @@ import { Searchbar } from "./Searchbar/Searchbar";
 import { Section } from "./App.styled";
 import { Loader } from "./Loader/Loader";
 import { LoadMoreButton } from "./Button/Button.styled";
-import { ImageGallery } from './ImageGallery/ImageGallery';
+import { ImageGallery } from "./ImageGallery/ImageGallery";
+
+import { mapper } from "services/mapper";
+import * as API from "../api/getImages"
 
 // import { Modal} from "./Modal/Modal"
 
@@ -15,6 +18,8 @@ export class App extends Component {
     isLoading: false,
     showModal: false,
     bigImage: [],
+    totalImages: 0,
+    sumImages: 0,
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -32,7 +37,9 @@ export class App extends Component {
       page: 1,
       isLoading: false,
       showModal: false,
-      bigImage:[],
+      bigImage: [],
+      totalImages: 0,
+      sumImages: 0,
     })
   }
 
