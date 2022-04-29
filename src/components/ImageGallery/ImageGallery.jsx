@@ -1,4 +1,4 @@
-import GalleryList from './ImageGallery.styled'
+import { GalleryList } from './ImageGallery.styled'
 
 export const ImageGallery = () => {
     return (
