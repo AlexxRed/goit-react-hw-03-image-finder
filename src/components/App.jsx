@@ -1,5 +1,8 @@
 import { Component } from "react";
 import { Searchbar } from "./Searchbar/Searchbar";
+// import { LoadMoreButton } from "./Button/Button.styled";
+// import { ImageGallery } from './ImageGallery/ImageGallery';
+
 // import { Modal} from "./Modal/Modal"
 
 export class App extends Component {
@@ -21,6 +24,10 @@ export class App extends Component {
       showModal: false,
       bigImage:[],
     })
+  }
+
+  loadMore = () => {
+    console.log('load image');
   }
 
   render() {
