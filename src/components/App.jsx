@@ -2,13 +2,14 @@ import { Component } from "react";
 import { Searchbar } from "./Searchbar/Searchbar";
 import { Section } from "./App.styled";
 import { Loader } from "./Loader/Loader";
-// import { LoadMoreButton } from "./Button/Button.styled";
+import { LoadMoreButton } from "./Button/Button";
 import { ImageGallery } from "./ImageGallery/ImageGallery";
+import { Modal } from "./Modal/Modal";
 
-// import { mapper } from "services/mapper";
-// import * as API from "../api/getImages"
+import { mapper } from "services/mapper";
+import { getImages } from "api/getImages";
 
-// import { Modal} from "./Modal/Modal"
+
 
 export class App extends Component {
   state = {
@@ -18,14 +19,41 @@ export class App extends Component {
     isLoading: false,
     showModal: false,
     bigImage: [],
-    totalImages: 0,
+    totalHits: 0,
     sumImages: 0,
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { page, searchQuery } = this.state;
     if (prevState.page !== page || prevState.searchQuery !== searchQuery) {
-      this.setState({isLoading: true})
+      try {
+        this.setState({ isLoading: true })
+        getImages(searchQuery, page).then(r => {
+
+          let customImagesData = mapper(r.data.hits)
+          // console.log(customImagesData);
+          // console.log(r.data);
+          if (r.data.hits.length === 0) {
+            this.setState({ isLoading: false });
+            console.log('we do not have this images');
+            return;
+          }
+          this.setState(prevState => {
+            return {
+              images: [...prevState.images, ...customImagesData],
+              isLoading: false,
+              totalHits: r.data.totalHits,
+              sumImages: 0,
+            }
+          })
+        })
+        
+
+      } catch (error) {
+        this.setState({ isLoading: false })
+        console.log(error);
+      }
+      
     }
     
   }
@@ -33,13 +61,13 @@ export class App extends Component {
   onSubmit = searchQuery => {
     this.setState({
       images: [],
-      searchQuery,
+      searchQuery: searchQuery,
       page: 1,
       isLoading: false,
       showModal: false,
       bigImage: [],
-      totalImages: 0,
-      sumImages: 0,
+      totalHits: 0,
+      // sumImages: 0,
     })
   }
 
@@ -52,7 +80,7 @@ export class App extends Component {
     // console.log('load image');
   }
 
-  showModal = () => {
+  toggleModal = () => {
     this.setState(prevState => {
       return {
         showModal: !prevState.showModal,
@@ -60,21 +88,48 @@ export class App extends Component {
     })
   }
 
+  showImage = (id) => {
+    const { toggleModal } = this;
+    const { images } = this.state;
+    images.map(image => {
+      if (image.id === id) {
+        toggleModal()
+        return this.setState({bigImage: image})
+      }
+      return image
+    })
+
+  }
+
   render() {
-    const { images, isLoading, bigImage } = this.state; //showModal,
-    const { onSubmit} = this; //, loadMore 
+    const { images, isLoading, bigImage, showModal,  totalHits, sumImages} = this.state; 
+    const { onSubmit, loadMore, toggleModal, showImage } = this; 
     // console.log(this.state.searchQuery);
     return (
       <Section>
         <Searchbar onSubmit={onSubmit} />
 
-        {isLoading && images.length === 0 ? (<Loader />) :
-        (images.length > 0 && (<ImageGallery images={images} showImage={bigImage}/>))
+        { isLoading &&
+          images.length === 0 ?
+          (<Loader />) :
+          (images.length > 0 &&
+          (<ImageGallery images={images} showImage={showImage} />))
         }
 
-        {isLoading && images.length === 0 && <Loader />}
+        { isLoading &&
+          images.length === 0 &&
+          <Loader />
+        }
 
+        { totalHits !== sumImages &&
+          images.length > 0 &&
+          isLoading === false &&
+          (<LoadMoreButton loadMore={loadMore} />)
+        }
 
+        {showModal && (
+          <Modal toggleModal={toggleModal} bigImage={bigImage} />
+        )}
       </Section>
     );
   }
