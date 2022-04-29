@@ -2,11 +2,11 @@ import { Component } from "react";
 import { Searchbar } from "./Searchbar/Searchbar";
 import { Section } from "./App.styled";
 import { Loader } from "./Loader/Loader";
-import { LoadMoreButton } from "./Button/Button.styled";
+// import { LoadMoreButton } from "./Button/Button.styled";
 import { ImageGallery } from "./ImageGallery/ImageGallery";
 
-import { mapper } from "services/mapper";
-import * as API from "../api/getImages"
+// import { mapper } from "services/mapper";
+// import * as API from "../api/getImages"
 
 // import { Modal} from "./Modal/Modal"
 
@@ -61,8 +61,8 @@ export class App extends Component {
   }
 
   render() {
-    const { images, isLoading, showModal, bigImage } = this.state;
-    const { onSubmit, loadMore } = this;
+    const { images, isLoading, bigImage } = this.state; //showModal,
+    const { onSubmit} = this; //, loadMore 
     // console.log(this.state.searchQuery);
     return (
       <Section>
