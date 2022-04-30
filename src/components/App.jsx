@@ -102,7 +102,7 @@ export class App extends Component {
   }
 
   render() {
-    const { images, isLoading, bigImage, showModal,  totalHits, sumImages} = this.state; 
+    const { images, isLoading, bigImage, showModal } = this.state; //totalHits, sumImages
     const { onSubmit, loadMore, toggleModal, showImage } = this; 
     // console.log(this.state.searchQuery);
     return (
