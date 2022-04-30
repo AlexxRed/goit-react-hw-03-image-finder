@@ -121,7 +121,8 @@ export class App extends Component {
           <Loader />
         }
 
-        { totalHits !== sumImages &&
+        {/* totalHits !== sumImages && */}
+        { 
           images.length > 0 &&
           isLoading === false &&
           (<LoadMoreButton loadMore={loadMore} />)
