@@ -77,7 +77,7 @@ export class App extends Component {
       page: prevState.page += 1,
     }
     })
-    // console.log('load image');
+    console.log('load image');
   }
 
   toggleModal = () => {
