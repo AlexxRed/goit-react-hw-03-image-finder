@@ -67,7 +67,7 @@ export class App extends Component {
       showModal: false,
       bigImage: [],
       totalHits: 0,
-      // sumImages: 0,
+      sumImages: 0,
     })
   }
 
@@ -110,14 +110,14 @@ export class App extends Component {
         <Searchbar onSubmit={onSubmit} />
 
         { isLoading &&
-          images.length === 0 ?
+          !images.length ?
           (<Loader />) :
           (images.length > 0 &&
           (<ImageGallery images={images} showImage={showImage} />))
         }
 
         { isLoading &&
-          images.length === 0 &&
+          images.length  &&
           <Loader />
         }
 
