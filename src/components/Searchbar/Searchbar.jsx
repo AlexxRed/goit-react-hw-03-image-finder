@@ -2,6 +2,10 @@ import PropTypes from 'prop-types';
 import { Component } from "react";
 import { SearchbarWarapper, SearchForm, SearchButton, SearchText, SearchInput } from "./Searchbar.styled";
 
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
+
+
 export class Searchbar extends Component {
     static propTypes = {
     onSubmit: PropTypes.func.isRequired,
@@ -22,7 +26,8 @@ export class Searchbar extends Component {
         
         event.preventDefault()
         if (searchQuery.trim() === '') {
-            console.log('add your search query');
+            Notify.failure("Enter your search query");
+            // console.log('add your search query');
         }
 
         onSubmit(searchQuery)

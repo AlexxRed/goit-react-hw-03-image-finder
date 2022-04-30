@@ -8,6 +8,30 @@ import { Modal } from "./Modal/Modal";
 
 import { mapper } from "services/mapper";
 import { getImages } from "api/getImages";
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
+// ================== Notiflix  init ==================
+
+Notify.init({
+width: '700px',
+position: 'right-top',
+closeButton: false,
+distance: '10px',
+opacity: 5,
+borderRadius: '5px',
+rtl: false,
+timeout: 2000,
+messageMaxLength: 110,
+backOverlay: false,
+backOverlayColor: 'rgba(0,0,0,0.9)',
+plainText: true,
+showOnlyTheLastOne: false,
+clickToClose: true,
+pauseOnHover: true,
+zindex: 4001,
+fontFamily: 'Quicksand',
+fontSize: '32px',
+});
 
 
 
@@ -35,7 +59,8 @@ export class App extends Component {
           // console.log(r.data);
           if (r.data.hits.length === 0) {
             this.setState({ isLoading: false });
-            console.log('we do not have this images');
+            Notify.info('we do not have this images');
+            // console.log('we do not have this images');
             return;
           }
           this.setState(prevState => {
