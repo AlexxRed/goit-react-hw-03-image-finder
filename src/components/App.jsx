@@ -97,12 +97,16 @@ export class App extends Component {
   }
 
   loadMore = () => {
-    this.setState(prevState => {
-      return{
-      page: prevState.page += 1,
-    }
-    })
-    console.log('load image');
+    // this.setState(prevState => {
+    //   return{
+    //   page: prevState.page += 1,
+    // }
+    // })
+    // console.log('load image');
+
+    let { page } = this.state;
+    page += 1;
+    this.setState({ page });
   }
 
   toggleModal = () => {
